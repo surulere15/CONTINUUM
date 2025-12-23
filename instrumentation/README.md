@@ -1,30 +1,40 @@
 # Instrumentation Layer
 
-Civilization-scale signals and observability for CONTINUUM.
+Civilization-scale signal observation for CONTINUUM.
+
+> ⚠️ **Signals are facts, not feedback.**
 
 ## Structure
 
 ```
 instrumentation/
-├── civilization_signals/   # World-state metrics
-├── telemetry/              # System performance
-└── observability/          # Tracing and logging
+├── schema/           # Signal data structures
+├── ingestion/        # Data adapters and registry
+├── normalization/    # Unit and temporal alignment
+├── storage/          # Append-only persistence
+├── access/           # Read-only API
+└── tests/            # Rejection path tests
 ```
 
-## Key Distinction
+## Hard Law
 
-**Civilization Signals ≠ Telemetry**
+Phase C is allowed to:
+- Define signal schemas
+- Ingest signals from trusted sources
+- Normalize and timestamp signals
+- Persist signals immutably
+- Expose read-only queries
 
-- **Signals**: World-level state (economic, environmental, societal)
-- **Telemetry**: System performance (latency, cost, errors)
+Phase C is **NOT** allowed to:
+- Interpret signals
+- Optimize against signals
+- Trigger alerts or actions
+- Modify objectives
+- Influence planning or execution
+- Aggregate into scores or utilities
 
-Both are important but serve different purposes.
+## Isolation
 
-## Signals
+**No imports from**: `kernel/`, `cognitive/`, `execution/`, `agents/`
 
-- Economic metrics
-- Environmental metrics
-- Societal metrics
-- Technological metrics
-
-These connect CONTINUUM to its civilization-scale objectives.
+Kernel cannot command instrumentation.
