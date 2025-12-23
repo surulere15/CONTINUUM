@@ -1,0 +1,112 @@
+# CONTINUUM Objective Canon v1.0
+# Civilization-Scale Objectives
+# Phase B - Purpose Without Agency
+
+version: "1.0"
+loaded_by: "Genesis Authority"
+
+objectives:
+  - objective_id: "O1_HUMAN_CONTINUITY"
+    description: "Preserve the long-term existence of humanity as a species"
+    priority: 1
+    scope: "civilization"
+    preservation_class: "non_negotiable"
+    irreversibility_risk: 1.0
+    success_signals:
+      - signal_id: "population_stability"
+        signal_type: "demographic"
+        description: "Global population remains stable and sustainable"
+      - signal_id: "extinction_risk_low"
+        signal_type: "existential"
+        description: "No active extinction-level threats"
+    failure_signals:
+      - signal_id: "population_collapse"
+        signal_type: "demographic"
+        description: "Rapid population decline beyond recovery"
+      - signal_id: "extinction_event"
+        signal_type: "existential"
+        description: "Species-level extinction in progress"
+
+  - objective_id: "O2_CIVILIZATIONAL_STABILITY"
+    description: "Prevent irreversible collapse of economic, informational, and social systems"
+    priority: 2
+    scope: "civilization"
+    preservation_class: "non_negotiable"
+    irreversibility_risk: 0.9
+    success_signals:
+      - signal_id: "system_resilience"
+        signal_type: "systemic"
+        description: "Critical systems maintain operational capacity"
+      - signal_id: "recovery_capability"
+        signal_type: "systemic"
+        description: "Systems can recover from disruptions"
+    failure_signals:
+      - signal_id: "cascade_failure"
+        signal_type: "systemic"
+        description: "Multiple critical systems failing simultaneously"
+      - signal_id: "irreversible_collapse"
+        signal_type: "systemic"
+        description: "Point of no return reached for system recovery"
+
+  - objective_id: "O3_KNOWLEDGE_PRESERVATION"
+    description: "Maintain and expand humanity's cumulative knowledge"
+    priority: 3
+    scope: "civilization"
+    preservation_class: "critical"
+    irreversibility_risk: 0.7
+    success_signals:
+      - signal_id: "knowledge_growth"
+        signal_type: "informational"
+        description: "Net growth in accessible human knowledge"
+      - signal_id: "knowledge_accessibility"
+        signal_type: "informational"
+        description: "Knowledge remains accessible across generations"
+    failure_signals:
+      - signal_id: "knowledge_loss"
+        signal_type: "informational"
+        description: "Significant loss of accumulated knowledge"
+      - signal_id: "dark_age"
+        signal_type: "informational"
+        description: "Extended period of knowledge inaccessibility"
+
+  - objective_id: "O4_HUMAN_AGENCY_PRESERVATION"
+    description: "Ensure humans retain meaningful choice and authorship over their lives"
+    priority: 4
+    scope: "civilization"
+    preservation_class: "critical"
+    irreversibility_risk: 0.8
+    success_signals:
+      - signal_id: "autonomy_maintained"
+        signal_type: "social"
+        description: "Humans retain decision-making authority"
+      - signal_id: "authorship_preserved"
+        signal_type: "social"
+        description: "Humans can shape their own futures"
+    failure_signals:
+      - signal_id: "autonomy_erosion"
+        signal_type: "social"
+        description: "Systematic reduction of human choice"
+      - signal_id: "coercion_normalized"
+        signal_type: "social"
+        description: "External control becomes the norm"
+
+  - objective_id: "O5_ADAPTIVE_CAPACITY"
+    description: "Increase humanity's ability to respond to future unknown risks"
+    priority: 5
+    scope: "civilization"
+    preservation_class: "important"
+    irreversibility_risk: 0.5
+    success_signals:
+      - signal_id: "response_capability"
+        signal_type: "resilience"
+        description: "Demonstrated ability to respond to novel threats"
+      - signal_id: "diversity_maintained"
+        signal_type: "resilience"
+        description: "Diversity of approaches and solutions preserved"
+    failure_signals:
+      - signal_id: "brittleness"
+        signal_type: "resilience"
+        description: "Inability to adapt to new challenges"
+      - signal_id: "monoculture"
+        signal_type: "resilience"
+        description: "Dangerous homogenization of responses"
