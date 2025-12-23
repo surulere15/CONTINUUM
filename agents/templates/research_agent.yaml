@@ -1,0 +1,54 @@
+# Research Agent Template
+# Type: Research
+# Purpose: Information gathering and analysis
+
+template:
+  id: research_agent
+  type: research
+  version: "1.0.0"
+  name: Research Agent
+  description: |
+    Agent specialized in information gathering, analysis,
+    and synthesis from various sources.
+
+  capabilities:
+    - id: web_search
+      scope: sanctioned_domains
+      constraints:
+        - rate_limit: 10/minute
+    - id: document_analysis
+      scope: provided_documents
+      constraints: []
+    - id: synthesis
+      scope: gathered_information
+      constraints: []
+
+  resources:
+    cpu: 2
+    memory: 4096  # MB
+    network: true
+    gpu: 0
+
+  lifecycle:
+    max_duration: 3600  # seconds
+    checkpoint_interval: 300
+    termination_conditions:
+      - condition: task_complete
+        action: terminate
+      - condition: timeout
+        action: terminate
+      - condition: error_rate > 0.5
+        action: suspend
+
+  governance:
+    autonomy_level: high
+    requires_approval:
+      - external_api_call
+      - data_persistence
+    audit_frequency: sampling
+
+  outputs:
+    - type: report
+      format: markdown
+    - type: structured_data
+      format: json

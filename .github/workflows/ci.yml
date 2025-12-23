@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install ruff mypy
+      - name: Lint
+        run: ruff check .
+      - name: Type check
+        run: mypy kernel/ --ignore-missing-imports
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pytest pytest-cov pyyaml
+      - name: Run tests
+        run: pytest tests/ -v --cov=kernel --cov-fail-under=100
+
+  kernel-isolation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check kernel isolation
+        run: |
+          # Ensure kernel has no forbidden imports
+          if grep -r "from execution\|from agents\|from cognitive" kernel/; then
+            echo "ERROR: Kernel has forbidden imports"
+            exit 1
+          fi
+          echo "Kernel isolation verified"

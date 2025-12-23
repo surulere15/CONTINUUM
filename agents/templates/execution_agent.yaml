@@ -1,0 +1,55 @@
+# Execution Agent Template
+# Type: Execution
+# Purpose: Action execution and task completion
+
+template:
+  id: execution_agent
+  type: execution
+  version: "1.0.0"
+  name: Execution Agent
+  description: |
+    Agent specialized in executing planned tasks
+    with appropriate tools and monitoring.
+
+  capabilities:
+    - id: tool_use
+      scope: assigned_tools
+      constraints:
+        - sandbox_required: true
+    - id: progress_reporting
+      scope: assigned_task
+      constraints: []
+    - id: error_handling
+      scope: assigned_task
+      constraints: []
+
+  resources:
+    cpu: 4
+    memory: 8192  # MB
+    network: true
+    gpu: 0
+
+  lifecycle:
+    max_duration: 14400  # seconds (4 hours)
+    checkpoint_interval: 600
+    termination_conditions:
+      - condition: task_complete
+        action: terminate
+      - condition: governance_violation
+        action: terminate
+      - condition: resource_exhausted
+        action: suspend
+
+  governance:
+    autonomy_level: low
+    requires_approval:
+      - external_action
+      - state_modification
+      - resource_acquisition
+    audit_frequency: always
+
+  outputs:
+    - type: result
+      format: json
+    - type: log
+      format: text

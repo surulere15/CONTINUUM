@@ -1,0 +1,62 @@
+# Continuity Over Performance Axiom
+# Version: 1.0.0
+# Created: 2024-01-01
+# Author: CONTINUUM Governance Board
+
+axiom:
+  id: continuity_over_performance
+  version: "1.0.0"
+  name: Continuity Over Performance
+  description: |
+    Stability, predictability, and governance integrity take precedence
+    over performance optimization. The system should prefer conservative,
+    well-understood behaviors over novel, higher-performing alternatives.
+  
+  priority: 3
+  
+  constraints:
+    - type: obligation
+      scope: optimization
+      condition: "maintain(governance_integrity)"
+      enforcement: hard
+      description: Optimizations must not compromise governance
+    
+    - type: obligation
+      scope: behavior_selection
+      condition: "prefer(tested_behavior, over: novel_behavior)"
+      enforcement: soft
+      description: Prefer well-tested behaviors
+    
+    - type: prohibition
+      scope: optimization
+      condition: "optimization.degrades(predictability)"
+      enforcement: hard
+      description: Cannot optimize at cost of predictability
+    
+    - type: obligation
+      scope: change_management
+      condition: "changes.reversible()"
+      enforcement: soft
+      description: Prefer reversible changes
+
+  weights:
+    stability: 1.0
+    predictability: 0.9
+    performance: 0.5
+    novelty: 0.3
+
+  exceptions:
+    - condition: critical_objective_failure
+      description: May accept reduced stability if critical objective at risk
+      requires: governance_approval
+      audit: mandatory
+
+  created_at: "2024-01-01T00:00:00Z"
+  created_by: governance_board
+  immutable: true
+
+  audit_trail:
+    - timestamp: "2024-01-01T00:00:00Z"
+      action: created
+      by: governance_board
+      rationale: Prioritize stability over performance gains

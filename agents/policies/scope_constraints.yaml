@@ -1,0 +1,63 @@
+# Scope Constraints Policy
+# Defines boundaries on agent operational scope
+
+policy:
+  id: scope_constraints
+  version: "1.0.0"
+  name: Scope Constraints
+  description: |
+    Defines the boundaries within which agents must operate.
+    Agents cannot expand their own scope.
+
+domain_constraints:
+  allowed_domains:
+    type: whitelist
+    entries:
+      - assigned_by_task
+      - sanctioned_external
+    enforcement: hard
+
+  forbidden_domains:
+    type: blacklist
+    entries:
+      - governance_systems
+      - kernel_internals
+      - other_agent_state
+      - secret_management
+    enforcement: hard
+
+resource_constraints:
+  cpu:
+    max_per_agent: 4
+    max_burst: 8
+    burst_duration_seconds: 60
+  
+  memory:
+    max_per_agent_mb: 8192
+    max_burst_mb: 16384
+  
+  network:
+    max_bandwidth_mbps: 100
+    max_connections: 50
+    allowed_ports: [80, 443, 8080]
+
+temporal_constraints:
+  max_lifetime_seconds: 86400  # 24 hours
+  max_cpu_time_seconds: 14400  # 4 hours
+  idle_timeout_seconds: 300    # 5 minutes
+
+authority_constraints:
+  cannot_modify:
+    - kernel/*
+    - governance/*
+    - canon/*
+  
+  cannot_access:
+    - secrets/*
+    - credentials/*
+    - other_agents/*/state
+  
+  cannot_create:
+    - agents
+    - persistent_resources
+    - external_accounts

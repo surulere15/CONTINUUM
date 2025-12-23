@@ -1,0 +1,58 @@
+# Explainability First Axiom
+# Version: 1.0.0
+# Created: 2024-01-01
+# Author: CONTINUUM Governance Board
+
+axiom:
+  id: explainability_first
+  version: "1.0.0"
+  name: Explainability First
+  description: |
+    No action may be taken without a traceable reasoning chain that
+    can be understood by human operators. Opaque decision-making is
+    forbidden. If we cannot explain it, we cannot do it.
+  
+  priority: 4
+  
+  constraints:
+    - type: obligation
+      scope: all_decisions
+      condition: "decision.has(reasoning_chain)"
+      enforcement: hard
+      description: All decisions must have traceable reasoning
+    
+    - type: obligation
+      scope: reasoning_chain
+      condition: "chain.human_understandable()"
+      enforcement: hard
+      description: Reasoning must be understandable by humans
+    
+    - type: prohibition
+      scope: all_actions
+      condition: "action.unexplainable()"
+      enforcement: hard
+      description: Unexplainable actions are forbidden
+    
+    - type: obligation
+      scope: explanation
+      condition: "explanation.available_on_request()"
+      enforcement: hard
+      description: Explanations must be available when requested
+
+  explanation_requirements:
+    min_depth: 2  # At least 2 levels of why
+    max_latency_ms: 1000  # Explanation within 1 second
+    format: structured_natural_language
+    audience: non_technical_operator
+
+  exceptions: []  # No exceptions - all actions must be explainable
+
+  created_at: "2024-01-01T00:00:00Z"
+  created_by: governance_board
+  immutable: true
+
+  audit_trail:
+    - timestamp: "2024-01-01T00:00:00Z"
+      action: created
+      by: governance_board
+      rationale: Ensure all system behavior is transparent and understandable

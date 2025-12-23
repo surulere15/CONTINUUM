@@ -1,0 +1,51 @@
+# Planning Agent Template
+# Type: Planning
+# Purpose: Strategy formulation and task decomposition
+
+template:
+  id: planning_agent
+  type: planning
+  version: "1.0.0"
+  name: Planning Agent
+  description: |
+    Agent specialized in breaking down goals into
+    actionable tasks and formulating strategies.
+
+  capabilities:
+    - id: goal_decomposition
+      scope: assigned_goals
+      constraints: []
+    - id: task_ordering
+      scope: decomposed_tasks
+      constraints: []
+    - id: resource_estimation
+      scope: planned_tasks
+      constraints: []
+
+  resources:
+    cpu: 1
+    memory: 2048  # MB
+    network: false
+    gpu: 0
+
+  lifecycle:
+    max_duration: 1800  # seconds
+    checkpoint_interval: 300
+    termination_conditions:
+      - condition: plan_approved
+        action: terminate
+      - condition: timeout
+        action: notify
+
+  governance:
+    autonomy_level: medium
+    requires_approval:
+      - plan_finalization
+      - resource_allocation
+    audit_frequency: always
+
+  outputs:
+    - type: plan
+      format: yaml
+    - type: task_graph
+      format: json

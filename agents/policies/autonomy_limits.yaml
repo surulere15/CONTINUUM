@@ -1,0 +1,70 @@
+# Autonomy Limits Policy
+# Defines boundaries on agent autonomous behavior
+
+policy:
+  id: autonomy_limits
+  version: "1.0.0"
+  name: Autonomy Limits
+  description: |
+    Defines what agents can do without explicit approval
+    at each autonomy level.
+
+levels:
+  low:
+    description: Most actions require approval
+    auto_approved:
+      - read_assigned_data
+      - internal_computation
+      - logging
+    requires_approval:
+      - external_call
+      - data_modification
+      - resource_acquisition
+      - any_output
+    forbidden:
+      - kernel_access
+      - agent_spawning
+      - governance_modification
+
+  medium:
+    description: Routine actions auto-approved
+    auto_approved:
+      - read_assigned_data
+      - internal_computation
+      - logging
+      - routine_external_calls
+      - standard_outputs
+    requires_approval:
+      - significant_resource_use
+      - data_persistence
+      - non_routine_external
+    forbidden:
+      - kernel_access
+      - agent_spawning
+      - governance_modification
+
+  high:
+    description: Most actions auto-approved
+    auto_approved:
+      - read_any_sanctioned_data
+      - internal_computation
+      - logging
+      - external_calls_in_scope
+      - standard_outputs
+      - routine_resource_use
+    requires_approval:
+      - large_resource_acquisition
+      - data_persistence_critical
+    forbidden:
+      - kernel_access
+      - agent_spawning
+      - governance_modification
+      - scope_expansion
+
+escalation:
+  uncertainty_threshold: 0.7  # Escalate if confidence < 70%
+  impact_threshold: medium    # Escalate if impact >= medium
+  always_escalate:
+    - governance_related
+    - safety_related
+    - high_impact
