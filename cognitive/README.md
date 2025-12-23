@@ -1,46 +1,40 @@
 # Cognitive Layer
 
-The cognitive layer provides reasoning, planning, and decision-making capabilities
-for CONTINUUM, always operating within kernel governance constraints.
+Bounded reasoning substrate for CONTINUUM.
+
+> ⚠️ **Cognition ≠ Agency. Reasoning ≠ Authority.**
 
 ## Structure
 
 ```
 cognitive/
-├── orchestration/     # High-level task coordination
-├── substrate/         # Model interfaces and reasoning
-└── evaluation/        # Quality and coherence checking
+├── substrate/       # Core reasoning primitives
+├── orchestration/   # Context and explanation
+├── interfaces/      # Read-only inspection
+└── tests/           # Forbidden path verification
 ```
 
-## Governance Relationship
+## Hard Law
 
-The cognitive layer **cannot**:
-- Modify kernel axioms or canon
-- Bypass governance validation
-- Execute actions directly (must go through execution layer)
+Phase D is allowed to:
+- Instantiate reasoning primitives
+- Route and transform information
+- Maintain internal representations
+- Perform constrained inference
+- Produce explanations
 
-The cognitive layer **must**:
-- Submit all intents to kernel for validation
-- Trace reasoning to canon objectives
-- Maintain explainability
+Phase D is **NOT** allowed to:
+- Form goals
+- Modify objectives
+- Trigger execution
+- Spawn agents
+- Optimize outcomes
+- Self-modify
+- Observe the world directly
 
-## Components
+## Isolation
 
-### Orchestration
+**No imports from**: `execution/`, `agents/`, `kernel/governance`
 
-- **Planner**: Decomposes goals into tasks
-- **Scenario Simulator**: Evaluates potential outcomes
-- **Reasoning Router**: Directs queries to appropriate reasoners
-- **Context Compressor**: Manages context window efficiently
-
-### Substrate
-
-- **Model Registry**: Tracks available models and capabilities
-- **Inference Gateway**: Routes inference requests
-- **Symbolic Reasoner**: Formal logic and constraint solving
-
-### Evaluation
-
-- **Coherence Checks**: Verifies reasoning consistency
-- **Outcome Scoring**: Assesses predicted outcomes
-- **Regression Tests**: Catches reasoning regressions
+Kernel may call cognition for analysis.
+Cognition may NOT call kernel governance.
